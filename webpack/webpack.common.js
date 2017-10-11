@@ -1,18 +1,21 @@
 /**
- * Created by SamMFFL on 2017/9/23.
+ * Created by SamMFFL on 2017/10/11.
  */
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 
+const rootPath = path.resolve(__dirname, '../');
+
+
 export default {
     entry: {
-        app: './src/index.js',
-        print: './src/print.js',
+        app: path.join(rootPath, './src/index.js'),
     },
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.join(rootPath, 'dist'),
+        publicPath: '/',
     },
     module: {
         rules: [
@@ -30,9 +33,6 @@ export default {
             template: './index.html',
             hash: true,
             cache: false,
-        })
+        }),
     ]
 };
-
-
-
