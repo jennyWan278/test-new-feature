@@ -11,6 +11,7 @@ const rootPath = path.resolve(__dirname, '../');
 export default {
     entry: {
         app: path.join(rootPath, './src/index.js'),
+        another: path.join(rootPath, './src/another-module.js')
     },
     output: {
         filename: '[name].bundle.js',
