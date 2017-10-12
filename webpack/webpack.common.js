@@ -25,6 +25,7 @@ export default {
             {test: /\.(woff|woff2|eot|ttf|otf)$/i, use: ['file-loader',]},
             {test: /\.xml$/, use: ['xml-loader'],},
             {test: /\.(csv|tsv)$/, use: ['csv-loader']},
+            {test: /\.scss/, use: ['style-loader', 'css-loader', 'autoprefixer-loader', 'sass-loader']}
         ]
     },
     plugins: [

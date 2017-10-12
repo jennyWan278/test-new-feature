@@ -2,13 +2,13 @@
  * Created by SamMFFL on 2017/9/23.
  */
 import _ from 'lodash';
-import './assets/styles/index.css';
+import './assets/styles/index.scss';
 // import data from './assets/data/person.xml';
 import printMe from './print';
 
 import {cube} from './utils/math.js';
 
-if(process.env.NODE_ENV !== 'production'){
+if (process.env.NODE_ENV !== 'production') {
     console.log('Looks like we are in development model');
     console.log(process.env.NODE_ENV);
 }
