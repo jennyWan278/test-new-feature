@@ -8,10 +8,14 @@
   font-style: normal;
 }
 
+
+
 .hello,#root {
   color: blue;
   font-family: MyFont;
   font-size: 30px;
+
+  display: flex;
 }
 
 

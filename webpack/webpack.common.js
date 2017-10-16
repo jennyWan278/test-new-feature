@@ -12,15 +12,6 @@ const nodeModulesPath = path.resolve(rootPath, "node_modules");
 
 
 export default {
-    entry: ["babel-polyfill", path.join(rootPath, './src/index.js')],
-    //     {
-    //     app: path.join(rootPath, './src/index.js'),
-    // },
-    output: {
-        filename: "[name].bundle.js",
-        path: path.join(rootPath, 'dist'),
-        publicPath: "/",
-    },
     resolve: {
         alias: {
             "jquery": path.join(nodeModulesPath, "/jquery/dist/jquery.min"),
@@ -29,15 +20,25 @@ export default {
     },
     module: {
         rules: [
-            {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract('style-loader', 'css-loader') //['style-loader', 'css-loader',]
-            },
             {test: /\.(png|svg|jpg|gif)$/, use: ['file-loader',]},
             {test: /\.(woff|woff2|eot|ttf|otf)$/i, use: ['file-loader',]},
             {test: /\.xml$/, use: ['xml-loader'],},
             {test: /\.(csv|tsv)$/, use: ['csv-loader']},
-            {test: /\.scss/, use: ['style-loader', 'css-loader', 'autoprefixer-loader', 'sass-loader']},
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                })
+            },
+            {
+                test: /\.scss/,
+                // use: ['style-loader', 'css-loader', 'autoprefixer-loader', 'sass-loader']
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', 'autoprefixer-loader', 'sass-loader']
+                })
+            },
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
@@ -51,7 +52,7 @@ export default {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(['/dist/']),
         new webpack.ProvidePlugin({
             $: "jquery",
             flexible: "flexible"
@@ -61,6 +62,11 @@ export default {
             template: './index.html',
             hash: true,
             cache: false,
+        }),
+        new ExtractTextPlugin('app.css?[hash]'),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'common',
+            filename: 'common.js?[hash]'
         }),
     ]
 };

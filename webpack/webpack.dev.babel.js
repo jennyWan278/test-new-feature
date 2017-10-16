@@ -4,10 +4,20 @@
 import merge from 'webpack-merge';
 import common from './webpack.common';
 import webpack from 'webpack';
+import path from 'path';
 
-
+const rootPath = path.resolve(__dirname, '../');
 
 export default merge(common, {
+    entry:{
+        app:path.join(rootPath, './src/index.js'),
+        common:['lodash','react'],
+    },
+    output: {
+        filename: "[name].bundle.js",
+        path: path.join(rootPath, '/dist/'),
+        publicPath: "/",
+    },
     devtool: 'inline-source-map',
     devServer: {
         contentBase: './dist',
@@ -21,6 +31,6 @@ export default merge(common, {
             'process.env': {
                 'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
             },
-        })
+        }),
     ]
 })
