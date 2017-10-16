@@ -5,6 +5,7 @@ import merge from 'webpack-merge';
 import common from './webpack.common';
 import webpack from 'webpack';
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default merge(common, {
     plugins: [
@@ -16,6 +17,7 @@ export default merge(common, {
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'common',
-        })
+        }),
+        new ExtractTextPlugin('style.css'),
     ]
 })

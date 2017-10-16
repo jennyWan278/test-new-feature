@@ -1,18 +1,20 @@
 
-//@font-face {
-//  font-family: 'MyFont';
-//  src: url("../fonts/radar.TTF");
-//  font-weight: 600;
-//  font-style: normal;
-//}
-//
-//.hello {
-//  color: red;
-//  font-family: MyFont;
-//  font-size: 30px;
-//}
+@import "reset";
+
+@font-face {
+  font-family: 'MyFont';
+  src: url("../fonts/radar.TTF");
+  font-weight: 600;
+  font-style: normal;
+}
+
+.hello,#root {
+  color: blue;
+  font-family: MyFont;
+  font-size: 30px;
+}
 
 
-.hello{
-  color: #000;
+#root{
+  border:1px solid red;
 }
