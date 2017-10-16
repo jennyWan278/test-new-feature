@@ -11,7 +11,7 @@ const rootPath = path.resolve(__dirname, '../');
 export default merge(common, {
     entry: {
         app: path.join(rootPath, './src/index.js'),
-        common: ['lodash', 'react'],
+        common: ['lodash', 'react','react-dom'],
     },
     output: {
         filename: "[name].js?[hash]",

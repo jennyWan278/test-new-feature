@@ -4,21 +4,19 @@
 
 import "babel-polyfill";
 import 'flexible';
-import './assets/styles/index.scss';
-// import './assets/styles/test.css';
-import _ from 'lodash';
-import react from 'react';
+import React, {Component} from 'react';
+import ReactDOM, {render} from 'react-dom';
+import {syncHistoryWithStore} from 'react-router-redux';
+import {browserHistory, hashHistory} from 'react-router';
 
-console.log(_);
-console.log(react);
-let $root = $('#root');
+import Root from 'src/container/Root';
+import Routes from 'src/container/Routes';
+import configureStore from 'src/redux/configureStore';
 
-console.log($root);
+const store = configureStore();
+const history = syncHistoryWithStore(hashHistory, store);
 
-console.log(123)
-try{alert([1,2,3].includes(1));}catch(e){
-    alert(e);
-}
-
-
-import './another-module'
+render(
+    <Root store={store} history={history} routes={Routes()}/>,
+    document.querySelector("#root"),
+);

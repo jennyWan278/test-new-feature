@@ -14,6 +14,7 @@ const nodeModulesPath = path.resolve(rootPath, "node_modules");
 export default {
     resolve: {
         alias: {
+            "src": path.join(rootPath,'src'),
             "jquery": path.join(nodeModulesPath, "/jquery/dist/jquery.min"),
             "flexible": path.join(nodeModulesPath, "/amfe-flexible/index.min")
         },
@@ -45,7 +46,7 @@ export default {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env']
+                        presets: ['env','react']
                     }
                 }
             }
