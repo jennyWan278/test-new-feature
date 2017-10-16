@@ -12,13 +12,14 @@ const nodeModulesPath = path.resolve(rootPath, "node_modules");
 
 
 export default {
-    entry: {
-        app: path.join(rootPath, './src/index.js'),
-    },
+    entry: ["babel-polyfill", path.join(rootPath, './src/index.js')],
+    //     {
+    //     app: path.join(rootPath, './src/index.js'),
+    // },
     output: {
-        filename: '[name].bundle.js',
+        filename: "[name].bundle.js",
         path: path.join(rootPath, 'dist'),
-        publicPath: '/',
+        publicPath: "/",
     },
     resolve: {
         alias: {
@@ -36,7 +37,17 @@ export default {
             {test: /\.(woff|woff2|eot|ttf|otf)$/i, use: ['file-loader',]},
             {test: /\.xml$/, use: ['xml-loader'],},
             {test: /\.(csv|tsv)$/, use: ['csv-loader']},
-            {test: /\.scss/, use: ['style-loader', 'css-loader', 'autoprefixer-loader', 'sass-loader']}
+            {test: /\.scss/, use: ['style-loader', 'css-loader', 'autoprefixer-loader', 'sass-loader']},
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['env']
+                    }
+                }
+            }
         ]
     },
     plugins: [
