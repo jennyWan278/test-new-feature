@@ -1,6 +1,21 @@
 
 @import "reset";
 
+
+
+@mixin test(){
+  background-color: $env;
+  width: $width;
+  border:$border;
+  height: $height;
+  margin:$margin;
+}
+
+body{
+  @include test();
+}
+//@import "test";
+
 @font-face {
   font-family: 'MyFont';
   src: url("../fonts/radar.TTF");
@@ -22,3 +37,10 @@
 #root{
   border:1px solid red;
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+  grid-column-gap: 10px;
+}
+

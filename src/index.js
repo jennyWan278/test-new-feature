@@ -4,30 +4,29 @@
 
 import "babel-polyfill";
 import 'flexible';
-import './assets/styles/index.scss';
+// import './assets/styles/index.scss';
+import './assets/styles/example.scss';
 // import './assets/styles/test.css';
 import _ from 'lodash';
-import {Map, List} from 'immutable';
 
-import addressList from './assets/data/addresslist.json';
+// import 'jquery.facedetection';
 
-console.log(addressList);
-// let $root = $('#root');
+
+$('#picture').faceDetection({
+    complete: function (faces) {
+        console.log(faces);
+    }
+});
+
+
+// function testable(isTestable) {
+//     return function (target) {
+//         target.isTestable = isTestable;
+//     }
+// }
 //
-// console.log($root);
+// @testable(true)
+// class MyTestableClass {
+// }
 //
-// console.log(123)
-// // try{alert([1,2,3].includes(1));}catch(e){
-// //     alert(e);
-// // }
-
-
-let obj = addressList.data.attributes;
-console.log('test', obj);
-
-let c =  _.cloneDeep(obj);
-// let c = deepCopy(obj);
-c['default'].isDefault = 1;
-c['others'].push(c.default);
-
-console.log('immutable', c);
+// console.log(MyTestableClass);

@@ -15,7 +15,8 @@ export default {
     resolve: {
         alias: {
             "jquery": path.join(nodeModulesPath, "/jquery/dist/jquery.min"),
-            "flexible": path.join(nodeModulesPath, "/amfe-flexible/index.min")
+            "flexible": path.join(nodeModulesPath, "/amfe-flexible/index.min"),
+            "faceDetection": path.join(nodeModulesPath, 'jquery.facedetection/dist/jquery.facedetection.min'),
         },
     },
     module: {
@@ -36,7 +37,12 @@ export default {
                 // use: ['style-loader', 'css-loader', 'autoprefixer-loader', 'sass-loader']
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader', 'autoprefixer-loader', 'sass-loader']
+                    use: [{loader: 'css-loader'}, {loader: 'autoprefixer-loader'}, {
+                        loader: "sass-loader",
+                        options: {
+                            data: "$env: red;$width: 100px;$height: 300px; $margin: auto auto;$border:10px solid gray;"
+                        }
+                    }]
                 })
             },
             {
