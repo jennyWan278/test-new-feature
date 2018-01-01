@@ -9,19 +9,42 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const rootPath = path.resolve(__dirname, '../');
 const nodeModulesPath = path.resolve(rootPath, "node_modules");
+const publicPath = {
+    dev: '/',
+    test: 'https://i0stg.yztcdn.com/app_js/h5/events/',
+    production: 'https://i0.yztcdn.com/app_js/h5/events/',
+};
 
-
+export {
+    publicPath,
+};
 export default {
     resolve: {
         alias: {
             "jquery": path.join(nodeModulesPath, "/jquery/dist/jquery.min"),
             "flexible": path.join(nodeModulesPath, "/amfe-flexible/index.min"),
-            "faceDetection": path.join(nodeModulesPath, 'jquery.facedetection/dist/jquery.facedetection.min'),
         },
     },
     module: {
         rules: [
-            {test: /\.(png|svg|jpg|gif)$/, use: ['file-loader',]},
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]?[hash:4]',
+                            publicPath: publicPath[process.env.NODE_ENV]
+                        },
+                    },
+                    // {
+                    //     loader: 'url-loader',
+                    //     options: {
+                    //         limit: 8192,
+                    //     },
+                    // }
+                ]
+            },
             {test: /\.(woff|woff2|eot|ttf|otf)$/i, use: ['file-loader',]},
             {test: /\.xml$/, use: ['xml-loader'],},
             {test: /\.(csv|tsv)$/, use: ['csv-loader']},
@@ -34,15 +57,22 @@ export default {
             },
             {
                 test: /\.scss/,
-                // use: ['style-loader', 'css-loader', 'autoprefixer-loader', 'sass-loader']
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: [{loader: 'css-loader'}, {loader: 'autoprefixer-loader'}, {
-                        loader: "sass-loader",
-                        options: {
-                            data: "$env: red;$width: 100px;$height: 300px; $margin: auto auto;$border:10px solid gray;"
-                        }
-                    }]
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                minimize: true
+                            }
+                        },
+                        {loader: 'autoprefixer-loader'},
+                        {
+                            loader: "sass-loader",
+                            // options: {
+                            //     data: "$env: red;$width: 100px;$height: 300px; $margin: auto auto;$border:10px solid gray;"
+                            // }
+                        }]
                 })
             },
             {
@@ -64,8 +94,9 @@ export default {
             flexible: "flexible"
         }),
         new HtmlWebpackPlugin({
+            filename: 'index.html',
             title: 'My test new feature',
-            template: './index.html',
+            template: 'html-withimg-loader!./src/index.tpl.html',
             hash: true,
             cache: false,
         }),

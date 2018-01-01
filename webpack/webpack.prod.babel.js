@@ -5,22 +5,21 @@ import merge from 'webpack-merge';
 import webpack from 'webpack';
 import path from 'path';
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
-import common from './webpack.common';
+import common, {publicPath} from './webpack.common';
 const rootPath = path.resolve(__dirname, '../');
+
 
 export default merge(common, {
     entry: {
         app: path.join(rootPath, './src/index.js'),
-        common: ['lodash', 'react'],
     },
     output: {
-        filename: "[name].js?[hash]",
+        filename: "[name].js?[hash:4]",
         chunkFilename: 'chunk.[id].[hash:4].js',
         path: path.join(rootPath, '/dist/'),
-        publicPath: "/",
+        publicPath: publicPath[process.env.NODE_ENV]
     },
     plugins: [
-        // new UglifyJSPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: false,
             cache: false,
