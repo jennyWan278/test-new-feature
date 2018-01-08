@@ -1,1 +1,188 @@
 @import "reset";
+
+@function rem($val) {
+    @return $val/64 * 1rem;
+}
+
+
+@mixin bg($url, $width,$height) {
+  width: rem($width);
+  height:rem($height);
+  background: url($url) no-repeat;
+  background-size: 100% 100%;
+}
+
+@mixin prefix($k, $v...) {
+    #{$k}: $v;
+    -webkit-#{$k}: $v;
+    -moz-#{$k}: $v;
+}
+
+@mixin css-prefix($property,$value){
+    -webkit-#{property}:$value;
+    #{$property}:$value;
+}
+
+@mixin flexbox(){
+    display:-webkit-box;
+    display:-webkit-flex;
+    display:-ms-flexbox;
+    display:flex;
+}
+@mixin flex($v:1){
+    -webkit-box-flex:$v;
+    -webkit-flex:$v;
+    -ms-flex:$v;
+    flex:$v;
+    width: 100%;
+}
+@mixin flex-direction($value:column){
+    -ms-flex-direction:$value;
+    @include css-prefix(box-orient,vertical);
+    @include css-prefix(flex-direction,$value);
+}
+@mixin flex-direction($value:row){
+    -ms-flex-direction:$value;
+    @include css-prefix(box-orient,horizontal);
+    @include css-prefix(flex-direction,$value);
+}
+@mixin align-items($value:center){
+    -ms-flex-align:start;
+    @include css-prefix(box-align,start);
+    @include css-prefix(align-items,$value);
+}
+
+
+html,body{height:100%;}
+.wrapper{
+    width:100%;
+    background: url(../imgs/bg.png) no-repeat;
+    background-size: 100% 100%;
+}
+.top{
+    width: 100%;
+
+    .img1{
+        @include bg('../imgs/img01.jpg', 640,120);
+    }
+}
+
+.center{
+    width: 100%;
+    position: relative;
+
+     .img2{
+        @include bg('../imgs/center-font.png', 564,218);
+        margin:0 auto;
+        margin-top:rem(16);
+    }
+    .img3{
+    @include bg('../imgs/cash.png', 513,377);
+    margin:0 auto;
+    margin-bottom:rem(10);
+    }
+    .share{
+        position: absolute;
+        right:0;
+        bottom: rem(94);
+        width: rem(102);
+        height:rem(41);
+        @include prefix('border-radius',rem(20.5) 0 0 rem(20.5));
+        background:url(../imgs/share.jpg) no-repeat;
+        background-size: 100% 100%;
+    }
+}
+
+
+.container{
+    width:100%;
+    h2{
+        color: #6d4900;
+        font-size: rem(24);
+        height:rem(50);
+        line-height: rem(50);
+        margin-bottom:rem(22);
+    }
+    .small-icon{
+        @include flexbox();
+        @include flex-direction(row);
+        @include align-items(center);
+        text-align:center;
+        padding-top:rem(42);
+        &-money{
+            @include flex(1);     
+           
+            span{
+                display: block;
+                position: relative;
+                @include bg('../imgs/money.png', 117,116);
+                 margin:0 auto;
+            }
+            
+        }
+        &-more100{
+            @include flex(1);
+            span{
+                display: block;
+                position: relative;
+                @include bg('../imgs/more100.png', 117,116);
+                margin:0 auto;                  
+            }  
+                    
+        }
+        &-money,&-more100{
+            span{
+                &::after{
+                    content: '';
+                    position: absolute;
+                    @include bg('../imgs/arr.png', 45,18);
+                    right: rem(-72);
+                    top:50%;
+                    margin-top:rem(-9);
+                 }
+            }
+        }
+        &-give{    
+            @include flex(1);
+            span{
+                 display: block;
+                @include bg('../imgs/give.png', 117,116);
+                margin:0 auto;
+            }            
+        }
+
+    }
+    .buy{
+        display: block;
+        width:rem(367);
+        height:rem(99);
+        background-image: url(../imgs/buy.png);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        margin: 0 auto;
+        text-indent: rem(-9999);
+    }
+
+    .info{
+        width:100%;
+        line-height: rem(31);
+        font-size: rem(24);
+        background-color: #ffeb62;
+        text-align: center;
+        color: #3f4000;
+    }
+    .info-title{
+        line-height: rem(28);
+        padding:rem(30) 0;
+        margin:0 auto;
+    }
+    .info-body {
+        padding:rem(5) rem(40) rem(76) rem(40); 
+        text-align: justify;
+        line-height: rem(31);
+    }
+    .info-body li{
+        margin-bottom: rem(24);
+    }
+}
+
