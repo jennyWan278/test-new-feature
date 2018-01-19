@@ -61,10 +61,11 @@ html,body{height:100%;}
 }
 .top{
     width: 100%;
-
-    .img1{
+    width:rem(640);
+    height:rem(120);
+   /*  .img1{
         @include bg('../imgs/img01.jpg', 640,120);
-    }
+    } */
 }
 
 .center{
