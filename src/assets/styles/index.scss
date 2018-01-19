@@ -1,1 +1,231 @@
 @import "reset";
+@function rem($val) {
+    @return $val/75 * 1rem;
+}
+
+
+@mixin bg($url, $width,$height) {
+  width: rem($width);
+  height:rem($height);
+  background: url($url) no-repeat;
+  background-size: 100% auto;
+}
+
+@mixin prefix($k, $v...) {
+    #{$k}: $v;
+    -webkit-#{$k}: $v;
+    -moz-#{$k}: $v;
+}
+
+@mixin css-prefix($property,$value){
+    -webkit-#{property}:$value;
+    #{$property}:$value;
+}
+
+@mixin flexbox(){
+    display:-webkit-box;
+    display:-webkit-flex;
+    display:-ms-flexbox;
+    display:flex;
+}
+@mixin flex($v:1){
+    -webkit-box-flex:$v;
+    -webkit-flex:$v;
+    -ms-flex:$v;
+    flex:$v;
+    width: 100%;
+}
+@mixin flex-direction($value:column){
+    -ms-flex-direction:$value;
+    @include css-prefix(box-orient,vertical);
+    @include css-prefix(flex-direction,$value);
+}
+@mixin flex-direction($value:row){
+    -ms-flex-direction:$value;
+    @include css-prefix(box-orient,horizontal);
+    @include css-prefix(flex-direction,$value);
+}
+@mixin align-items($value:center){
+    -ms-flex-align:start;
+    @include css-prefix(box-align,start);
+    @include css-prefix(align-items,$value);
+}
+
+
+html,body{height:100%;}
+.wrapper{
+    width:100%;
+    height:rem(1331);
+    background: url(../imgs/bg.png) no-repeat;
+    background-size: 100% 100%;
+    .top{
+        @include bg('../imgs/number.png',750,270);
+        background-position: 0 rem(-25);
+        position: relative;
+        // margin-bottom:rem(5);
+        .award-list{
+            position: absolute;
+            width: rem(525);
+            height:rem(75);
+            line-height: rem(75);
+            left:50%;
+            top:55%;
+            @include prefix(transform,translate(-50%,-50%));
+            margin:0;
+            font-size: rem(32);
+            text-align: center;
+            color: #fff;
+            .prize{
+                color: #ffe329;
+            }
+        }
+    }
+    .award{
+        width:rem(750);
+        height:rem(348);
+        position: relative;
+        overflow: hidden;
+        .frame{
+            @include bg('../imgs/frame.png',750,348);
+            top:0;
+            left:0;
+            position: absolute;
+            z-index: 1000;
+        }
+                
+        .pic{
+            width:rem(182);
+            display: block;
+            position: absolute;
+            z-index: -2;
+            top:0;
+            @include prefix(transform,translateX(-50%));
+            padding-top:rem(80);
+            .awards{
+                display: block;
+                width:100%;
+                height:rem(200);
+            }
+            span{
+                position: relative;
+                img{
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    top:50%;
+                    @include prefix(transform,translateY(-50%));
+                }
+            }
+        }
+        .line1{
+            left:19%;
+        }
+        .line2{
+            left:50%;
+            top:rem(-200);
+        }
+        .line3{
+            left:81%;
+            top:rem(-400);
+        }
+    }
+    .award-botton{
+        @include bg('../imgs/center-bg.png',750,300);
+        background-position: 0 rem(-20);
+        img{
+            display: block;
+            width: rem(639);
+            height:auto;
+            margin:0 auto;
+            padding-top:rem(20);
+        }
+        .btn-center{
+            @include flexbox();
+            @include flex-direction(row);
+            @include align-items(center);
+            .rel{
+                position: relative;
+            }
+            .left{
+                @include flex(1);
+                .max-btn{    
+                @include bg('../imgs/max-btn.png',183,126);
+                background-position:rem(15) rem(12);
+                margin:0 auto;
+
+                }
+            }
+            .center{
+                @include flex(2);
+                .go-btn{ 
+                @include bg('../imgs/go-btn.png',252,179);
+                background-position:0 rem(10);
+                margin:0 auto;
+                }
+            }
+
+            .right{
+                @include flex(1);
+                .wine-btn{
+                @include bg('../imgs/wine-btn.png',167,125);
+                background-position: rem(-5) rem(10);
+                margin:0 auto;
+                }
+            }  
+            .btn{
+                position: absolute;
+                @include prefix(transform,translate(-50%,-50%));
+                @include prefix('border-radius',50%);
+            }  
+            .btn-left{
+                left:55%;
+                top:50%;
+                width:rem(135);
+                height:rem(105);
+            }       
+            .btn-right{
+                left:45%;
+                top:50%;
+                width:rem(135);
+                height:rem(105);
+            }
+            .btn-big{
+                left:50%;
+                top:45%;
+                width:rem(195);
+                height:rem(143);               
+            }
+            button{
+                border:none;
+                background-color: transparent;
+                outline: none;
+                -webkit-tap-highlight-color:transparent;
+            }
+        }
+    }
+    .award-list{
+        @include flexbox();
+        @include flex-direction(row);
+        @include align-items(center);
+        margin-top:rem(37);
+        .ipad,.iphone,.gold,.ticket{
+            @include flex(1);
+        }
+        img{
+           display: block;
+           width: rem(155);
+           height:rem(155);
+           margin:0 auto;
+        }
+    }
+    .line{
+        @include bg('../imgs/line.png',639,11);
+        margin:0 auto;
+        margin-top:rem(25);
+    }
+    .award-btn{
+        @include bg('../imgs/my-award-btn.png',331,90);
+        margin:0 auto;
+        margin-top:rem(42);
+    }
+}
